@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Item from './Item'
+import './List.css'
+
 
 class List extends Component{
     constructor(props){
@@ -7,12 +9,26 @@ class List extends Component{
         this.state = {
             nums: [1, 2, 3, 4, 5, 6]
         }
+    this.remove = this.remove.bind(this)
+    }
+
+    remove(num){
+        this.setState(st =>({
+            nums: st.nums.filter(n => n!== num)
+        }))
     }
 
     render(){
-        return this.state.nums.map((num)=>
-            <Item number ={num}/>
+        let nums = this.state.nums.map((num)=>
+            <Item value ={num} remove={this.remove}/>
         )
+        return (
+            <div className='List'>
+                <h1>Better number list</h1>
+                <ul>{nums}</ul>
+            </div>
+        )
+
 
     }
 }
